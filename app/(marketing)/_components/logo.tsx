@@ -15,6 +15,14 @@ export function Logo() {
                 width={40}
                 height={40}
                 alt="Logo"
+                className="dark:hidden"
+            />
+            <Image
+                src="/logo-dark.svg"
+                width={40}
+                height={40}
+                alt="Logo"
+                className="hidden dark:block"
             />
             <p className={cn("font-semibold", font.className)}>Jotion</p>
         </div>
