@@ -11,7 +11,7 @@ export function Heroes() {
 
                 <div className="relative h-[400px] w-[400px] hidden md:block">
                     <Image className="object-contain dark:hidden" src="/reading.png" fill alt="Reading"/>
-                    <Image className="object-contain hidden: dark:block" src="/reading-dark.png" fill alt="Reading"/>
+                    <Image className="object-contain hidden dark:block" src="/reading-dark.png" fill alt="Reading"/>
                 </div>
             </div>
         </div>
