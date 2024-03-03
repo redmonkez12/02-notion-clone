@@ -107,19 +107,23 @@ export default function Navigation() {
             success: "New note created!",
             error: "Failed to create a new note",
         });
-    }
+    };
 
     return (
         <>
             <aside
                 ref={sidebarRef}
-                className={cn("group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]",
+                className={cn(
+                    "group/sidebar h-full bg-secondary overflow-y-auto relative flex w-60 flex-col z-[99999]",
                     isResetting && "transition-all ease-in-out duration-300",
-                    isMobile && "w-0")}>
+                    isMobile && "w-0"
+                )}
+            >
                 <div
                     onClick={collapse}
                     role="button"
-                    className={cn("h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
+                    className={cn(
+                        "h-6 w-6 text-muted-foreground rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600 absolute top-3 right-2 opacity-0 group-hover/sidebar:opacity-100 transition",
                         isMobile && "opacity-100"
                     )}
                 >
@@ -131,13 +135,15 @@ export default function Navigation() {
                         label="Search"
                         icon={Search}
                         isSearch
-                        onClick={() => {}}
+                        onClick={() => {
+                        }}
                     />
                     <Item
                         label="Settings"
                         icon={Settings}
                         isSearch
-                        onClick={() => {}}
+                        onClick={() => {
+                        }}
                     />
                     <Item
                         onClick={handleCreate}
@@ -152,8 +158,8 @@ export default function Navigation() {
                 <div
                     onMouseDown={handleMouseDown}
                     onClick={resetWidth}
-                    className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize
-                absolute h-full w-1 bg-primary/10 right-0 top-0"/>
+                    className="opacity-0 group-hover/sidebar:opacity-100 transition cursor-ew-resize absolute h-full w-1 bg-primary/10 right-0 top-0"
+                />
             </aside>
             <div
                 ref={navbarRef}
@@ -177,8 +183,8 @@ Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
             }}
             className="flex gap-x-2 py-[3px]"
         >
-            <Skeleton className="h-4 w-4" />
-            <Skeleton className="h-4 w-[30%]" />
+            <Skeleton className="h-4 w-4"/>
+            <Skeleton className="h-4 w-[30%]"/>
         </div>
-    )
-}
+    );
+};

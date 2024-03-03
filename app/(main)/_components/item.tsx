@@ -1,12 +1,16 @@
 "use client";
 
-import { ChevronDown, ChevronRight, LucideIcon } from "lucide-react";
+import { ChevronDown, ChevronRight, LucideIcon, Plus } from "lucide-react";
 import { Id } from "@/convex/_generated/dataModel";
 import { cn } from "@/lib/utils";
+import { useMutation } from "convex/react";
+import { api } from "@/convex/_generated/api";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 type ItemProps = {
     id?: Id<"documents">;
-    documentsIcon?: string;
+    documentIcon?: string;
     active?: boolean;
     expanded?: boolean;
     isSearch?: boolean;
@@ -23,13 +27,41 @@ export function Item({
                          label,
                          icon: Icon,
                          active,
-                         documentsIcon,
+                         documentIcon,
                          isSearch,
                          level = 0,
                          onExpand,
                          expanded,
                      }: ItemProps) {
+    const router = useRouter();
+    const create = useMutation(api.documents.create);
+
     const ChevronIcon = expanded ? ChevronDown : ChevronRight;
+
+    function handleExpand(event: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        event.stopPropagation();
+        onExpand?.();
+    }
+
+    function onCreate(
+        event: React.MouseEvent<HTMLDivElement, MouseEvent>
+    ) {
+        event.stopPropagation();
+        if (!id) return;
+        const promise = create({ title: "Untitled", parentDocument: id })
+            .then((documentId) => {
+                if (!expanded) {
+                    onExpand?.();
+                }
+                // router.push(`/documents/${documentId}`);
+            });
+
+        toast.promise(promise, {
+            loading: "Creating a new note...",
+            success: "New note created!",
+            error: "Failed to create a new note."
+        });
+    }
 
     return (
         <div
@@ -43,16 +75,16 @@ export function Item({
                 <div
                     role="button"
                     className="h-full rounded-sm hover:bg-neutral-300 dark:bg-neutral-600 mr-1"
-                    onClick={() => {}}
+                    onClick={handleExpand}
                 >
                     <ChevronIcon
                         className="h-4 w-4 shrink-0 text-muted-foreground/50"
                     />
                 </div>
             )}
-            {documentsIcon ? (
+            {documentIcon ? (
                 <div>
-                    {documentsIcon}
+                    {documentIcon}
                 </div>
             ) : (
                 <Icon className="shrink-0 h-[18px] mr-2 text-muted-foreground"/>
@@ -67,6 +99,17 @@ export function Item({
                 ">
                     <span className="text-xs">⌘</span>K
                 </kbd>
+            )}
+            {!!id && (
+                <div className="ml-auto items-center gap-x-2">
+                    <div
+                        role="button"
+                        onClick={onCreate}
+                        className="opacity-0 group-hover:opacity-100 h-full ml-auto rounded-sm hover:bg-neutral-300 dark:hover:bg-neutral-600"
+                    >
+                        <Plus className="h-4 w-4 text-muted-foreground"/>
+                    </div>
+                </div>
             )}
         </div>
     );
