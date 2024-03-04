@@ -13,8 +13,10 @@ import { toast } from "sonner";
 import { Skeleton } from "@/components/ui/skeleton";
 import { DocumentList } from "@/app/(main)/_components/document-list";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useSearch } from "@/hooks/use-search";
 
 export default function Navigation() {
+    const search = useSearch();
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
     const create = useMutation(api.documents.create);
@@ -136,8 +138,7 @@ export default function Navigation() {
                         label="Search"
                         icon={Search}
                         isSearch
-                        onClick={() => {
-                        }}
+                        onClick={search.onOpen}
                     />
                     <Item
                         label="Settings"
