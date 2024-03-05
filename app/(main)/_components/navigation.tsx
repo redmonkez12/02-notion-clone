@@ -15,6 +15,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { useSearch } from "@/hooks/use-search";
 import { useSettings } from "@/hooks/use-settings";
 import { Navbar } from "@/app/(main)/_components/navbar";
+import { TrashBox } from "@/app/(main)/_components/trash-box";
 
 export default function Navigation() {
     const search = useSearch();
@@ -174,7 +175,7 @@ export default function Navigation() {
                         <PopoverContent
                             className="p-0 w-72"
                             side={isMobile ? "bottom" : "right"}>
-                            <p>Trash box</p>
+                            <TrashBox/>
                         </PopoverContent>
                     </Popover>
                 </div>
