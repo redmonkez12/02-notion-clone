@@ -10,13 +10,14 @@ import { useMutation } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Item } from "@/app/(main)/_components/item";
 import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
 import { DocumentList } from "@/app/(main)/_components/document-list";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { useSearch } from "@/hooks/use-search";
+import { useSettings } from "@/hooks/use-settings";
 
 export default function Navigation() {
     const search = useSearch();
+    const settings = useSettings();
     const pathname = usePathname();
     const isMobile = useMediaQuery("(max-width: 768px)");
     const create = useMutation(api.documents.create);
@@ -144,8 +145,7 @@ export default function Navigation() {
                         label="Settings"
                         icon={Settings}
                         isSearch
-                        onClick={() => {
-                        }}
+                        onClick={settings.onOpen}
                     />
                     <Item
                         onClick={handleCreate}
@@ -195,17 +195,3 @@ export default function Navigation() {
         </>
     );
 }
-
-Item.Skeleton = function ItemSkeleton({ level }: { level?: number }) {
-    return (
-        <div
-            style={{
-                paddingLeft: level ? `${(level * 12) + 25}px` : "12px"
-            }}
-            className="flex gap-x-2 py-[3px]"
-        >
-            <Skeleton className="h-4 w-4"/>
-            <Skeleton className="h-4 w-[30%]"/>
-        </div>
-    );
-};
